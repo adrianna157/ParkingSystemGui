@@ -135,13 +135,8 @@ public class ParkingGui extends JFrame {
         ParkingRequest request = new ParkingRequest(command.name(), properties);
         String jsonRequest = request.toJson();
 
-        // Convert JSON string to Map
-        Gson gson = new Gson();
-        java.lang.reflect.Type type = new TypeToken<Map<String, String>>(){}.getType();
-        Map<String, String> map = gson.fromJson(jsonRequest, type);
-
         // Send JSON request to server and receive JSON response
-        String jsonResponse = command.execute(map);
+        String jsonResponse = command.execute(jsonRequest);
 
         // Convert JSON response to ParkingResponse
         ParkingResponse response = ParkingResponse.fromJson(jsonResponse);

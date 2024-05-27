@@ -5,7 +5,6 @@
  */
 package ict4315.server;
 
-import com.google.gson.Gson;
 import ict4315.parkingsystem.*;
 
 import java.time.LocalDateTime;
@@ -34,7 +33,7 @@ public class ParkingService {
         Map<String, String> args = request.getProperties();
         ParkingResponse response;
         switch (request.getCommandName()) {
-            case "CUSTOMER":
+            case "Register Customer":
                 Address customerAddress = new Address(args.get("Address 1"), args.get("Address 2"), args.get("City"), args.get("State"), args.get("Zipcode"));
                 try {
                     response = new ParkingResponse(200, parkingOffice.register(args.get("First Name"), args.get("Last Name"), args.get("Phone number"), customerAddress));
@@ -44,7 +43,7 @@ public class ParkingService {
                 }
                 break;
 
-            case "CAR":
+            case "Register Vehicle":
                 try {
                     response = new ParkingResponse(200, parkingOffice.register(CarType.valueOf(args.get("COMPACT/SUV")), args.get("License"), args.get("Customer Id")));
                 } catch (Exception ex) {
@@ -53,7 +52,7 @@ public class ParkingService {
                 }
                 break;
 
-            case "PARK": {
+            case "Finish Parking": {
                 try {
                     ParkingLot parkingLot = parkingOffice.getParkingLot(args.get("Parking lot Id"));
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
@@ -69,7 +68,7 @@ public class ParkingService {
             }
             break;
 
-            case "CHARGES":
+            case "Get Charges":
             {
                 try {
                     response = new ParkingResponse(200, parkingOffice.getParkingCharges(parkingOffice.getCustomer(args.get("Customer Id"))));

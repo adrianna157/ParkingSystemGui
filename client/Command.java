@@ -7,6 +7,7 @@ package ict4315.client;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import ict4315.parkingsystem.ParkingResponse;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -39,24 +40,14 @@ public class Command {
     return fieldNames;
   }
 
-  public String execute(Map<String, String> data) {
+  public String execute(String jsonRequest) {
     try {
-      // Convert Map to JSON string
-      Gson gson = new Gson();
-      String jsonData = gson.toJson(data);
-
-      // Convert JSON string back to Map
-      Type type = new TypeToken<Map<String, String>>(){}.getType();
-      Map<String, String> dataMap = gson.fromJson(jsonData, type);
 
 
       // Send JSON string to server and receive JSON response
-      String jsonResponse = Client.runCommand(command, dataMap);
+      String jsonResponse = Client.runCommand(jsonRequest);
 
-      // Convert JSON response to Map
-      Map<String, String> responseMap = gson.fromJson(jsonResponse, type);
-
-      return responseMap.toString();
+      return jsonResponse;
     } catch (IOException e) {
       e.printStackTrace();
       return e.getMessage();

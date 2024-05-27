@@ -5,8 +5,6 @@
  */
 package ict4315.server;
 
-import ict4315.client.Command;
-import ict4315.client.ResponseData;
 import ict4315.parkingsystem.*;
 
 import static ict4315.parkingsystem.Main.WEEKDAY_CARTYPE_DISCOUNT;
@@ -18,7 +16,6 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.apache.commons.lang3.SerializationUtils;
 
 /**
  *
@@ -82,7 +79,6 @@ public class Server {
             }
         }
     }
-    }
 
     /**
      * Run this as: $ java ict4300.week8.server.Server
@@ -116,7 +112,7 @@ public class Server {
         parkingOffice.addParkingLot(parkingLotA);
         parkingOffice.addParkingLot(parkingLotB);
         parkingOffice.addParkingLot(parkingLotC);
-        
+
         new Server(service).startServer();
     }
 }

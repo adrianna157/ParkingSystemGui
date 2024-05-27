@@ -36,22 +36,14 @@ public class Client {
 
     private static Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
-    public static String runCommand(String command, Map<String, String> data)
+    public static String runCommand(String data)
             throws IOException {
 
         InetAddress host = InetAddress.getByName(SERVER);
         String jsonResult = "";
         try (Socket link = new Socket(host, PORT)) {
-            // Convert Map to Properties
-            Properties properties = new Properties();
-            for (Map.Entry<String, String> entry : data.entrySet()) {
-                properties.setProperty(entry.getKey(), entry.getValue());
-            }
-
-            // Convert RequestData object to JSON string and send to server
-            ParkingRequest requestData = new ParkingRequest(command, properties);
             PrintWriter out = new PrintWriter(link.getOutputStream(), true);
-            out.println(gson.toJson(requestData));
+            out.println(data);
             out.flush();
 
             // connect to server
